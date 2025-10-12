@@ -1,18 +1,13 @@
 /* Font */
 @font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Variable.ttf') format('truetype');
+  font-family: 'AlibabaPuHuiTi';
+  src: url('/fonts/AlibabaPuHuiTi-3-55-Regular.ttf') format('truetype');
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-VariableItalic.ttf') format('truetype');
-  font-style: italic;
-  font-display: swap;
-}
+
 html {
-  font-family: 'Satoshi', sans-serif;
+  font-family: 'AlibabaPuHuiTi', sans-serif;
 }
 
 /* Theme */
