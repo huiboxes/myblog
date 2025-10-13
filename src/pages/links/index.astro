@@ -14,20 +14,20 @@ const headings = [
 
 const { friends } = links
 const linksConf = config.integ.links
-const linkEditPage = 'https://github.com/cworld1/astro-theme-pure/blob/main/public/links.json'
+const linkEditPage = 'https://github.com/huiboxes/myblog/blob/main/public/links.json'
 ---
 
 <PageLayout title='Links' {headings} comment>
-  <p>怎么可能有顺序呢，当然是随机的~ It's random</p>
-  <h2 id='common-links'>Common Links</h2>
+  {/*<p>顺序随机~ It's random</p>*/}
+  <h2 id='common-links'>普通链接</h2>
   <FriendList list={friends[0]} />
-  <Collapse title='Links with Bad Status'>
+  {/*<Collapse title='Links with Bad Status'>
     <FriendList list={friends[1]} />
   </Collapse>
   <Collapse title='Link History Book'>
     <Timeline events={linksConf.logbook} />
-  </Collapse>
-  <h2 id='special-links'>Special Links</h2>
+  </Collapse>*/}
+  <h2 id='special-links'>特殊链接</h2>
   <FriendList list={friends[2]} />
 
   <!-- apply-links -->
@@ -50,7 +50,7 @@ const linkEditPage = 'https://github.com/cworld1/astro-theme-pure/blob/main/publ
   </blockquote>
 
   <p>
-    可通过下方留言或 <a href={linkEditPage} target='_blank'>提交 PR</a> 申请友链。此外申请说明：<br
+    可通过 <a href={linkEditPage} target='_blank'>提交 PR</a> 申请友链。此外申请说明：<br
     />
     Apply your link by leaving comment or <a href={linkEditPage} target='_blank'>Submitting a PR</a
     >. Additional info:
