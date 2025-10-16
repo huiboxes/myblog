@@ -1,6 +1,5 @@
 {
   "name": "astro-theme-pure",
-  "type": "module",
   "version": "4.0.8",
   "scripts": {
     "dev": "astro dev",
@@ -21,6 +20,7 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/vercel": "^8.2.2",
+    "@elog/plugin-img-r2": "^0.1.2-beta.0",
     "@playform/compress": "^0.2.0",
     "@waline/client": "^3.6.0",
     "astro": "^5.12.0",
