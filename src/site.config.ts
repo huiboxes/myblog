@@ -108,8 +108,6 @@ export const integ: Partial<IntegrationUserConfig> = {
     // Friend logbook
     logbook: [
       { date: '2025-01-01', content: '欢迎申请友链！' },
-      { date: '2025-01-02', content: '请提供您的网站名称、简介和链接' },
-      { date: '2025-01-03', content: '我会尽快审核并与您互链' }
     ],
     // Yourself link info
     applyTip: [
