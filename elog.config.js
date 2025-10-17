@@ -36,7 +36,7 @@ module.exports = {
       bucket: process.env.R2_BUCKET,
       endpoint: process.env.R2_ENDPOINT,
       host: process.env.R2_HOST,
-      prefixKey: 'images-'
+      prefixKey: 'blog-images'
     }
   }
 }
