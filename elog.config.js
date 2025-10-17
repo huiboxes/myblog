@@ -17,9 +17,10 @@ module.exports = {
     platform: 'local',
     local: {
       outputDir: './src/content/blog/',
-      filename: 'urlname',
+      filename: 'title',
       catalog: true,
       format: 'markdown',
+      formatExt: './elog.format.js',
       frontMatter: {
         enable: true,
         exclude: ['status','urlname'],
@@ -27,15 +28,15 @@ module.exports = {
     },
   },
   image: {
-    enable: false,
-    plugin: 'r2',
+    enable: true,
+    plugin: r2,
     r2: {
       accessKeyId: process.env.R2_ACCESSKEYID,
       secretAccessKey: process.env.R2_SECRET_ACCESSKEY,
       bucket: process.env.R2_BUCKET,
       endpoint: process.env.R2_ENDPOINT,
       host: process.env.R2_HOST,
-      prefixKey: ''
+      prefixKey: 'images-'
     }
   }
 }

@@ -6,15 +6,14 @@
       "updated": 1760633362000,
       "properties": {
         "title": "测试文章",
-        "urlname": "rvwolgsuqg45gh08",
         "date": "2025-10-17 00:48:40",
         "updated": "2025-10-17 00:49:22",
-        "cover": "https://cdn.nlark.com/yuque/0/2025/png/2625424/1760633352114-afc456b6-1609-4714-90db-68741b9d1cd3.png",
+        "cover": "https://blog-images.codenlog.com/images-/d58ad5dad39acac38451c82c5d7460a2.png",
         "description": "这是测试标题123412312341235rsadfasdf测试图片"
       },
       "catalog": [],
-      "realName": "rvwolgsuqg45gh08",
-      "relativePath": "rvwolgsuqg45gh08.md",
+      "realName": "测试文章",
+      "relativePath": "测试文章.md",
       "docPath": "src\\content\\blog\\"
     }
   ],
