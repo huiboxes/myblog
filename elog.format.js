@@ -9,11 +9,28 @@ const { matterMarkdownAdapter } = require("@elog/cli");
  * @return {Promise<DocDetail>} 返回处理后的文档对象
  */
 const format = async (doc, imageClient) => {
+  // 处理封面图片
   const cover = doc.properties.cover;
   if (cover) {
     doc.properties.cover = await imageClient.uploadImageFromUrl(cover, doc);
   }
-  doc.body = doc.body.replace(/\n/gi, '\n\n')
+  
+  // 确保日期格式正确
+  if (doc.properties.date) {
+    doc.properties.publishDate = new Date(doc.properties.date).toISOString();
+    delete doc.properties.date; // 删除原始的 date 字段
+  } else if (doc.properties.publishDate) {
+    doc.properties.publishDate = new Date(doc.properties.publishDate).toISOString();
+  } else {
+    doc.properties.publishDate = new Date().toISOString();
+  }
+  
+  if (doc.properties.updated) {
+    doc.properties.updatedDate = new Date(doc.properties.updated).toISOString();
+    delete doc.properties.updated;
+  }
+  
+  doc.body = doc.body.replace(/\n/gi, '\n\n');
   return matterMarkdownAdapter(doc);
 };
 
