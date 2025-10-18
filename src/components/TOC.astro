@@ -1,0 +1,179 @@
+---
+import type { MarkdownHeading } from 'astro'
+
+interface Props {
+  headings: MarkdownHeading[]
+}
+
+const { headings } = Astro.props
+
+// Filter out h1 and extract id, depth and text from each heading
+const headingList = headings
+  .filter(({ depth }) => depth > 1)
+  .map(({ slug, depth, text }) => ({
+    id: slug,
+    depth,
+    text
+  }))
+---
+
+<toc-heading class="sticky hidden h-fit max-h-[calc(100vh-6rem)] w-52 shrink-0 overflow-y-auto pb-6 md:block">
+  <div>
+    <h2 class="mb-3 text-sm font-medium uppercase tracking-wider text-foreground">目录</h2>
+    <ul class="flex flex-col gap-1 border-s ps-3 text-sm">
+      {
+        headingList.map(({ id, depth, text }) => (
+          <li 
+            class="toc-item relative border-s-2 ps-3 transition-colors hover:border-primary hover:text-primary"
+            style={`padding-inline-start: ${(depth - 2) * 16}px`}
+          >
+            <div class="absolute start-0 top-0 h-0 w-0.5 bg-primary"></div>
+            <a href={`#${id}`} data-target={id} class="block py-1 pl-2">{text}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</toc-heading>
+
+<!-- 移动端目录直接显示 -->
+<div class="mb-4 block md:hidden">
+  <div class="border rounded-lg p-4">
+    <h2 class="mb-3 text-sm font-medium uppercase tracking-wider text-foreground">目录</h2>
+    <ul class="flex flex-col gap-1 border-s ps-3 text-sm">
+      {
+        headingList.map(({ id, depth, text }) => (
+          <li 
+            class="toc-item relative border-s-2 ps-3 transition-colors hover:border-primary hover:text-primary"
+            style={`padding-inline-start: ${(depth - 2) * 16}px`}
+          >
+            <div class="absolute start-0 top-0 h-0 w-0.5 bg-primary"></div>
+            <a href={`#${id}`} data-target={id} class="block py-1 pl-1">{text}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<script>
+  // 获取所有目录链接和对应的目标标题元素
+  const tocContainer = document.querySelector('toc-heading')
+  const tocLinks = tocContainer ? tocContainer.querySelectorAll('a[data-target]') : []
+  // 通过父元素类名选择移动端目录链接
+  const mobileTocContainer = document.querySelector('div.block.md\\:hidden')
+  const mobileTocLinks = mobileTocContainer ? mobileTocContainer.querySelectorAll('a[data-target]') : []
+  const allTocLinks = [...tocLinks, ...mobileTocLinks]
+  
+  // 高亮指定目标的目录项
+  const highlightTocItem = (targetId) => {
+    // 移除所有链接的活跃状态
+    allTocLinks.forEach(l => {
+      l.parentElement.classList.remove('border-primary', 'text-primary')
+      const progressBar = l.parentElement.querySelector('.absolute')
+      if (progressBar) {
+        progressBar.style.height = '0'
+      }
+    })
+    
+    // 为指定目标的链接添加活跃状态
+    const activeLinks = document.querySelectorAll(`a[data-target="${targetId}"]`)
+    activeLinks.forEach(activeLink => {
+      activeLink.parentElement.classList.add('border-primary', 'text-primary')
+      const progressBar = activeLink.parentElement.querySelector('.absolute')
+      if (progressBar) {
+        progressBar.style.height = '100%'
+      }
+    })
+  }
+
+  // 创建 Intersection Observer
+  const observer = new IntersectionObserver((entries) => {
+    // 找到第一个进入视口的标题
+    let activeHeading = null
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        activeHeading = entry.target
+        break
+      }
+    }
+    
+    // 如果找到了活跃的标题，更新TOC中的活动链接
+    if (activeHeading) {
+      highlightTocItem(activeHeading.id)
+    }
+  }, {
+    // 配置观察选项
+    rootMargin: '-20% 0% -80% 0%', // 当标题进入视口的20%区域时触发
+    threshold: 0
+  })
+
+  // 观察所有标题元素
+  headingList.forEach(({ id }) => {
+    const heading = document.getElementById(id)
+    if (heading) {
+      observer.observe(heading)
+    }
+  })
+
+  // 平滑滚动功能
+  allTocLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault()
+      const targetId = link.getAttribute('data-target')
+      const targetElement = document.getElementById(targetId)
+      
+      if (targetElement) {
+        // 动态计算头部高度
+        const header = document.querySelector('header')
+        const headerHeight = header ? header.offsetHeight : 0
+        
+        // 获取目标元素距离页面顶部的距离
+        const targetOffsetTop = targetElement.offsetTop
+        
+        // 检查用户是否偏好减少动画
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        
+        // 滚动到目标位置，考虑头部高度
+        window.scrollTo({
+          top: targetOffsetTop - headerHeight - 20, // 额外减去20px使标题不会紧贴头部
+          behavior: prefersReducedMotion ? 'auto' : 'smooth'
+        })
+        
+        // 更新URL hash
+        history.pushState(null, '', `#${targetId}`)
+        
+        // 手动触发高亮当前点击的目录项
+        highlightTocItem(targetId)
+      }
+    })
+  })
+
+  // 页面加载完成后，如果URL中有hash，高亮对应的目录项
+  const handleInitialHash = () => {
+    if (window.location.hash) {
+      // 使用setTimeout确保DOM完全加载
+      setTimeout(() => {
+        const targetId = window.location.hash.substring(1)
+        highlightTocItem(targetId)
+      }, 100)
+    }
+  }
+  
+  // 在DOMContentLoaded和load事件中都处理初始hash
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', handleInitialHash)
+  } else {
+    // DOM已经加载完成
+    handleInitialHash()
+  }
+  
+  // 添加 window load 事件监听器确保所有资源加载完成后再处理
+  window.addEventListener('load', handleInitialHash)
+</script>
+
+<style>
+  toc-heading :global(.toc-item) {
+    display: flow-root;
+  }
+</style>
