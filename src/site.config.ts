@@ -165,6 +165,16 @@ export const integ: Partial<IntegrationUserConfig> = {
       },
       imageUploader: false
     }
+  },
+  /**
+   * 硅基流动(SiliconFlow)配置
+   * 用于AI生成功能，如文章摘要、标签等
+   */
+  siliconFlow: {
+    /** 是否启用硅基流动功能 */
+    enable: true,
+    /** 默认使用的模型 */
+    defaultModel: 'Qwen/Qwen2.5-7B-Instruct'
   }
 }
 

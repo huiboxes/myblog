@@ -3,32 +3,59 @@
     {
       "id": 240834581,
       "doc_id": "rvwolgsuqg45gh08",
-      "updated": 1760633362000,
+      "updated": 1760778211000,
       "properties": {
         "title": "测试文章",
-        "date": "2025-10-17 00:48:40",
-        "updated": "2025-10-17 00:49:22",
-        "cover": "https://blog-images.codenlog.com/images-/d58ad5dad39acac38451c82c5d7460a2.png",
-        "description": "这是测试标题123412312341235rsadfasdf测试图片"
+        "cover": "https://blog-images.codenlog.com/blog-images/562fd8fea10873436cae9b12646136c7.png",
+        "description": "用户提供的文章内容不完整或格式异常，无法提取核心观点。建议补充有效文本信息以便生成准确摘要。",
+        "publishDate": "2025-10-16T16:48:40.000Z",
+        "tags": [
+          "测试文章",
+          "测试标题",
+          "图片测试",
+          "测试数据",
+          "无意义内容"
+        ],
+        "updatedDate": "2025-10-18T09:03:31.000Z"
       },
-      "catalog": [],
+      "catalog": [
+        {
+          "title": "测试文章的目录",
+          "doc_id": "rvwolgsuqg45gh08"
+        }
+      ],
       "realName": "测试文章",
-      "relativePath": "测试文章.md",
-      "docPath": "src\\content\\blog\\"
+      "relativePath": "测试文章的目录\\测试文章.md",
+      "docPath": "src\\content\\blog\\测试文章的目录"
     }
   ],
   "catalog": [
+    {
+      "type": "TITLE",
+      "title": "测试文章的目录",
+      "uuid": "PKWEotjafa70PbI1",
+      "url": "",
+      "prev_uuid": "",
+      "sibling_uuid": "",
+      "child_uuid": "G2B4xgbIq9qCh285",
+      "parent_uuid": "",
+      "doc_id": "",
+      "level": 0,
+      "id": "",
+      "open_window": 1,
+      "visible": 1
+    },
     {
       "type": "DOC",
       "title": "测试文章",
       "uuid": "G2B4xgbIq9qCh285",
       "url": "rvwolgsuqg45gh08",
-      "prev_uuid": "",
+      "prev_uuid": "PKWEotjafa70PbI1",
       "sibling_uuid": "",
       "child_uuid": "",
-      "parent_uuid": "",
+      "parent_uuid": "PKWEotjafa70PbI1",
       "doc_id": 240834581,
-      "level": 0,
+      "level": 1,
       "id": 240834581,
       "open_window": 1,
       "visible": 1

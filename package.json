@@ -2,6 +2,7 @@
   "name": "astro-theme-pure",
   "version": "4.0.8",
   "scripts": {
+    "elog:sync": " npx @elog/cli sync -e .elog.env",
     "dev": "astro dev",
     "dev:check": "astro check --watch & astro dev",
     "build": "astro-pure check && astro check && astro build",
