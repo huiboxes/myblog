@@ -109,11 +109,9 @@ const headingList = headings
   })
 
   // 观察所有标题元素
-  headingList.forEach(({ id }) => {
-    const heading = document.getElementById(id)
-    if (heading) {
-      observer.observe(heading)
-    }
+  const headingElements = document.querySelectorAll('main :where(h2, h3, h4, h5, h6)[id]')
+  headingElements.forEach(heading => {
+    observer.observe(heading)
   })
 
   // 平滑滚动功能

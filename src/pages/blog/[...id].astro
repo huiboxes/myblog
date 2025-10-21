@@ -8,6 +8,10 @@ export const prerender = true
 
 export async function getStaticPaths() {
   const posts = sortMDByDate(await getBlogCollection())
+  // 添加检查确保posts存在且不为空
+  if (!posts || posts.length === 0) {
+    return []
+  }
   return posts.map((post) => ({
     params: { id: post.id },
     props: { post, posts }
