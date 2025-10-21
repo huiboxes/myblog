@@ -54,7 +54,24 @@ const renderContent = async (post: CollectionEntry<'docs'>, site: URL) => {
 }
 
 const GET = async (context: AstroGlobal) => {
-  const allPostsByDate = sortMDByDate(await getBlogCollection('docs')) as CollectionEntry<'docs'>[]
+  const docsCollection = await getBlogCollection('docs')
+  // 如果docs集合为空，则返回空的RSS feed
+  if (!docsCollection || docsCollection.length === 0) {
+    return rss({
+      // Basic configs
+      trailingSlash: false,
+      xmlns: { h: 'http://www.w3.org/TR/html4/' },
+      stylesheet: '/scripts/pretty-feed-v3.xsl',
+
+      // Contents
+      title: config.title,
+      description: config.description,
+      site: import.meta.env.SITE,
+      items: []
+    })
+  }
+  
+  const allPostsByDate = sortMDByDate(docsCollection) as CollectionEntry<'docs'>[]
   const siteUrl = context.site ?? new URL(import.meta.env.SITE)
 
   return rss({

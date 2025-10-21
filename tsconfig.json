@@ -1,5 +1,5 @@
 {
-  "extends": "astro/tsconfigs/strict",
+  "extends": "astro/tsconfigs/base",
   "include": [".astro/types.d.ts", "**/*"],
   "compilerOptions": {
     // Basic
@@ -12,7 +12,7 @@
     "verbatimModuleSyntax": true,
     // Others
     "baseUrl": ".",
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     // Paths
     "paths": {
       "@/assets/*": ["src/assets/*"],

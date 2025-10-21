@@ -13,6 +13,10 @@ export const prerender = true
 
 export async function getStaticPaths() {
   const posts = sortMDByDate(await getBlogCollection('docs'))
+  // 如果docs集合为空，则返回空数组以避免错误
+  if (!posts || posts.length === 0) {
+    return []
+  }
   return posts.map((post) => ({
     params: { id: post.id },
     props: { post }
